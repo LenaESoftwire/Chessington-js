@@ -1,46 +1,46 @@
 import Player from '../player';
 import Square from '../square';
 import Piece from './piece';
+import King from './king';
 
-export default class Bishop extends Piece {
+export default class Rook extends Piece {
     constructor(player) {
         super(player);
     }
 
     getAvailableMoves(board) {
-        
         const location = board.findPiece(this);
         const moves = [];
-        console.log(board.getPiece(Square.at(2, 3)));
+        const vectorUR = {row: 1, col: 1};
+        const vectorDR = {row: -1, col: 1};
+        const vectorUL = {row: 1, col: -1};
+        const vectorDL = {row: -1, col: -1};
 
-        for (let i = 1; this.checkIfOnBoard(location.row + i, location.col + i); i++) {
-            if (board.getPiece(Square.at(location.row + i, location.col + i))) {
-                break;
+        function findMoves (piece, vector) {
+            for (let i = 1; i < 7; i++) {
+                const square = Square.at(location.row + i*vector.row, location.col + i*vector.col);
+                if (piece.checkIfOnBoard(square.row, square.col)) {
+                    const oppPiece = board.getPiece(square);
+                    if (oppPiece) {
+                        if (oppPiece.player === piece.player) {
+                            break;
+                        }
+                        console.log(typeof(oppPiece));
+                        console.log(oppPiece);
+                        if (oppPiece instanceof King) {
+                            break;
+                        }
+                        moves.push(square);
+                        break;   
+                    }
+                    moves.push(square);
+                }
             }
-            moves.push(Square.at(location.row + i, location.col + i));
         }
-
-        for (let i = 1; this.checkIfOnBoard(location.row + i, location.col - i); i++) {
-            if (board.getPiece(Square.at(location.row + i, location.col - i))) {
-                break;
-            }
-            moves.push(Square.at(location.row + i, location.col - i));
-        }
-
-        for (let i = 1; this.checkIfOnBoard(location.row - i, location.col - i); i++) {
-            if (board.getPiece(Square.at(location.row - i, location.col - i))) {
-                break;
-            }
-            moves.push(Square.at(location.row - i, location.col - i));
-        }
-
-        for (let i = 1; this.checkIfOnBoard(location.row - i, location.col + i); i++) {
-            if (board.getPiece(Square.at(location.row - i, location.col + i))) {
-                break;
-            }
-            moves.push(Square.at(location.row - i, location.col + i));
-        }
-        //const legalMoves = moves.filter(move => move.row > -1 && move.row < 8 && move.col > -1 && move.col < 8)
+        findMoves(this, vectorUR);
+        findMoves(this, vectorDR);
+        findMoves(this, vectorUL);
+        findMoves(this, vectorDL);
         return moves;
     }
 }
