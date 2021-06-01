@@ -8,30 +8,30 @@ export default class Bishop extends Piece {
 
     getAvailableMoves(board) {
         let location = board.findPiece(this);
-        let locationRow = location.row
-        let locationCol = location.col
-        let locationRow2 = location.row
-        let locationCol2 = location.col
+        let locationRowPlus = location.row
+        let locationColPlus = location.col
+        let locationRowMinus = location.row
+        let locationColMinus = location.col
 
         let moves = [];
         for (let i = 0; i < 8; i++) {     
 
-            locationRow += 1
-            locationRow2 -= 1
-            locationCol += 1
-            locationCol2 -= 1
+            locationRowPlus += 1
+            locationRowMinus -= 1
+            locationColPlus += 1
+            locationColMinus -= 1
 
-            if (locationRow < 8 && locationCol < 8) {
-                moves.push(Square.at(locationRow, locationCol));  
+            if (locationRowPlus < 8 && locationColPlus < 8) {
+                moves.push(Square.at(locationRowPlus, locationColPlus));  
             }
-            if (locationRow < 8 && locationCol2 > -1) {
-                moves.push(Square.at(locationRow, locationCol2));  
+            if (locationRowPlus < 8 && locationColMinus > -1) {
+                moves.push(Square.at(locationRowPlus, locationColMinus));  
             }
-            if (locationRow2 > -1 && locationCol2 > -1) {
-                moves.push(Square.at(locationRow2, locationCol2));
+            if (locationRowMinus > -1 && locationColMinus > -1) {
+                moves.push(Square.at(locationRowMinus, locationColMinus));
             }
-            if (locationRow2 > -1 && locationCol < 8) {
-                moves.push(Square.at(locationRow2, locationCol));
+            if (locationRowMinus > -1 && locationColPlus < 8) {
+                moves.push(Square.at(locationRowMinus, locationColPlus));
             }
         }
         return moves;
