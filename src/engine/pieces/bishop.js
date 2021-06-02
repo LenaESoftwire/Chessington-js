@@ -7,12 +7,11 @@ export default class Bishop extends Piece {
         super(player);
     }
 
-    
-
     getAvailableMoves(board) {
         
         const location = board.findPiece(this);
         const moves = [];
+        console.log(board.getPiece(Square.at(2, 3)));
 
         for (let i = 1; this.checkIfOnBoard(location.row + i, location.col + i); i++) {
             if (board.getPiece(Square.at(location.row + i, location.col + i))) {
