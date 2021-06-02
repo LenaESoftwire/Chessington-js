@@ -9,18 +9,24 @@ export default class Pawn extends Piece {
 
     getAvailableMoves(board) {
         let location = board.findPiece(this)
-        const moves = [];
+        const allMoves = [];
+        const legalMoves = [];
         if (this.player === Player.WHITE) {
-            moves.push(Square.at(location.row + 1, location.col));
+            allMoves.push(Square.at(location.row + 1, location.col));
             if (location.row === 1) {
-                moves.push(Square.at(location.row + 2, location.col));
+                allMoves.push(Square.at(location.row + 2, location.col));
             }
         } else {
-            moves.push(Square.at(location.row - 1, location.col));
+            allMoves.push(Square.at(location.row - 1, location.col));
             if (location.row === 6) {
-                moves.push(Square.at(location.row - 2, location.col));
+                allMoves.push(Square.at(location.row - 2, location.col));
             }
         }
-        return moves
+        allMoves.forEach(move => {
+            if(!getPiece(move)) {
+                legalMoves.push(move);
+            }
+        })
+        return legalMoves;
     }
 }
