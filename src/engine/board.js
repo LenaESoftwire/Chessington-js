@@ -1,6 +1,7 @@
 import Player from './player';
 import GameSettings from './gameSettings';
 import Square from './square';
+import King from './pieces/king';
 
 export default class Board {
     constructor(currentPlayer) {
@@ -42,5 +43,30 @@ export default class Board {
             this.setPiece(fromSquare, undefined);
             this.currentPlayer = (this.currentPlayer === Player.WHITE ? Player.BLACK : Player.WHITE);
         }
+    }
+
+    findMoves(directions, location, piece, board, distance) {
+
+        const moves = [];
+
+        directions.forEach(direction => {
+
+            for (let i = 1; piece.checkIfOnBoard(location.row + direction[0] * i, location.col + direction[1] * i); i++) {
+                if (i > distance) {
+                    break;
+                }
+                const square = Square.at(location.row + direction[0] * i, location.col + direction[1] * i);
+                //console.log(square);
+                if (board.getPiece(square)) {
+                    if (piece.player === (board.getPiece(square)).player || (board.getPiece(square) instanceof King)) {
+                        break;
+                    }
+                    moves.push(square);
+                    break;
+                }
+                moves.push(square);
+            }
+        })
+        return moves;
     }
 }
