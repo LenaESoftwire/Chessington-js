@@ -8,11 +8,10 @@ export default class Knight extends Piece {
 
     getAvailableMoves(board) {
         const location = board.findPiece(this);
-        const directions = [[2, 1], [2, -1], [1, -2], [1, 2], [-2, 1], [-2, -1], [-1, 2], [-1, -2]]; 
+        const directions = [[2, 1], [2, -1], [1, -2], [1, 2], [-2, 1], [-2, -1], [-1, 2], [-1, -2]];
         const ourPiece = this
 
-        return board.findMoves(directions, location, ourPiece, board, 1)    
-       
-    }
+        return board.findMoves(directions, location, ourPiece, board, 1)
 
+    }
 }

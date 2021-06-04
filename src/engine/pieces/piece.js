@@ -1,3 +1,5 @@
+import Square from '../square';
+
 export default class Piece {
     constructor(player) {
         this.player = player;
@@ -18,5 +20,4 @@ export default class Piece {
         }
         return true;
     }
-    
 }

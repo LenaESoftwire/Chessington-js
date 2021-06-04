@@ -1,7 +1,8 @@
 import Square from '../square';
 import Piece from './piece';
+import Board from '../board';
 
-export default class Queen extends Piece {
+export default class King extends Piece {
     constructor(player) {
         super(player);
     }
@@ -11,8 +12,22 @@ export default class Queen extends Piece {
         const directions = [[1, 1], [-1, 1], [1, -1], [-1, -1], [1, 0], [-1, 0], [0, 1], [0, -1]]; 
         const ourPiece = this
 
-        return board.findMoves(directions, location, ourPiece, board, 1)    
-       
-    }
+        const oppPieces = board.findAllOppPieces();
+        const oppMoves = [];
+        oppPieces.forEach(piece => oppMoves.push(...piece.getAvailableMoves(board)));
+        console.log (oppMoves);
+        const ourMoves = board.findMoves(directions, location, ourPiece, board, 1);
+        return ourMoves.filter(move => !oppMoves.some(oppMove => oppMove.row === move.row && oppMove.col === move.col));    
+    };
 
+        // // const allMoves = board.findMoves(directions, location, ourPiece, board, 1);
+        // // allMoves.forEach(move => {
+
+            
+        // });
+
+
+        //console.log(board);
+        
+       
 }

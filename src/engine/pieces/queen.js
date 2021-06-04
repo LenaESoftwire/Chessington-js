@@ -8,11 +8,10 @@ export default class Queen extends Piece {
 
     getAvailableMoves(board) {
         const location = board.findPiece(this);
-        const directions = [[1, 1], [-1, 1], [1, -1], [-1, -1], [1, 0], [-1, 0], [0, 1], [0, -1]]; 
+        const directions = [[1, 1], [-1, 1], [1, -1], [-1, -1], [1, 0], [-1, 0], [0, 1], [0, -1]];
         const ourPiece = this
 
-        return board.findMoves(directions, location, ourPiece, board, 7)    
-       
+        return board.findMoves(directions, location, ourPiece, board, 7)
+
     }
 }
-

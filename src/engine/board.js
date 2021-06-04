@@ -2,6 +2,7 @@ import Player from './player';
 import GameSettings from './gameSettings';
 import Square from './square';
 import King from './pieces/king';
+import Piece from './pieces/piece';
 
 export default class Board {
     constructor(currentPlayer) {
@@ -37,7 +38,7 @@ export default class Board {
     }
 
     movePiece(fromSquare, toSquare) {
-        const movingPiece = this.getPiece(fromSquare);        
+        const movingPiece = this.getPiece(fromSquare);
         if (!!movingPiece && movingPiece.player === this.currentPlayer) {
             this.setPiece(toSquare, movingPiece);
             this.setPiece(fromSquare, undefined);
@@ -56,7 +57,6 @@ export default class Board {
                     break;
                 }
                 const square = Square.at(location.row + direction[0] * i, location.col + direction[1] * i);
-                //console.log(square);
                 if (board.getPiece(square)) {
                     if (piece.player === (board.getPiece(square)).player || (board.getPiece(square) instanceof King)) {
                         break;
@@ -68,5 +68,18 @@ export default class Board {
             }
         })
         return moves;
+    }
+
+    findAllOppPieces () {
+        const opposingPieces = [];
+        for (let x = 0; x < 8; x++) {
+            for (let y = 0; y < 8; y++) {
+                const piece = this.getPiece(Square.at(x, y));
+                if (piece && piece.player !== this.currentPlayer) {
+                    opposingPieces.push(piece);
+                }
+            }
+        }
+        return opposingPieces;
     }
 }
